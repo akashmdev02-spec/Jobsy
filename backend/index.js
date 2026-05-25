@@ -1,18 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
+require('dotenv').config();
 
-// 1. Enable CORS Middleware with open options
-app.use(cors({
-  origin: '*', // Allows any frontend URL to safely fetch data from your api
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  credentials: true
-}));
+const app = express(); // 👈 Make sure this line is written exactly here!
 
-// 2. Handle preflight OPTIONS requests explicitly (Crucial for Vercel Serverless)
-app.options('*', cors());
-
+// Now it is safe to apply configurations:
+app.use(cors({ origin: '*' }));
 app.use(express.json());
-
-// ... Your routes (app.use('/auth', authRoutes), etc.) live below here
